@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+	<properties resource="db-config.properties"/>
+	<typeAliases>
+		<!-- <typeAlias type="cn.chn.mybatis.domain.User" alias="User"/> -->
+		<package name="cn.chn.mybatis.domain"/>
+	</typeAliases>
+    <!--环境配置，连接的数据库，这里使用的是MySQL-->
+    <environments default="mysql">
+        <environment id="mysql">
+            <!--指定事务管理的类型，这里简单使用Java的JDBC的提交和回滚设置-->
+            <transactionManager type="JDBC"></transactionManager>
+            <!--dataSource 指连接源配置，POOLED是JDBC连接对象的数据源连接池的实现-->
+            <dataSource type="POOLED">
+                <property name="driver" value="${driver}"></property>
+                <property name="url" value="${url}"></property>
+                <property name="username" value="${username}"></property>
+                <property name="password" value="${password}"></property>
+            </dataSource>
+        </environment>
+    </environments>
+    <mappers>
+        <mapper resource="cn/chn/mybatis/domain/user.mapper.xml"/>
+        <mapper resource="cn/chn/mybatis/domain/student.mapper.xml"/>
+        <mapper resource="cn/chn/mybatis/domain/teacher.mapper.xml"/>
+        <mapper class="cn.chn.mybatis.dao.IUserDao"/>
+    </mappers>
+</configuration>

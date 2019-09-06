@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.chn.mybatis.domain.UserMapper">
+	<select id="selectOne" resultType="User">
+		select * from user where id = #{id}
+	</select>
+	<select id="selectAll" parameterType="Map" resultType="User">
+		select * from user
+		<where>
+			<if test="name!=null">
+				name like CONCAT('%',#{name},'%')
+			</if>
+		</where>
+	</select>
+	<insert id="insert" parameterType="User">
+		insert into user(id,name,pwd) values(#{id}, #{name}, #{pwd})
+	</insert>
+	<update id="update" parameterType="User">
+		update user set name = #{name}, pwd = #{pwd} where id = #{id}
+	</update>
+	<delete id="delete">
+		delete from user where id = #{id}
+	</delete>
+	
+	<select id="selectAllLimit" parameterType="Map" resultType="User">
+		select * from user limit #{startIndex}, #{pageSize}
+	</select>
+	<select id="selectAllLimits" parameterType="Map" resultType="User">
+		select * from user
+	</select>
+</mapper>
